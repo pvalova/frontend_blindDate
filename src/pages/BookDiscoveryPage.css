@@ -1,0 +1,206 @@
+.discovery-container {
+  min-height: 100vh;
+  background-color: #FFF8E7;
+  font-family: 'Georgia', serif;
+}
+
+.discovery-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.discovery-title {
+  text-align: center;
+  color: #5D4037;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.search-container form {
+  display: flex;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 20px;
+  padding-left: 40px;
+  background-color: #E8D0C0;
+  border: none;
+  border-radius: 20px;
+  font-family: 'Georgia', serif;
+  font-size: 1rem;
+  color: #5D4037;
+}
+
+.search-button {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #5D4037;
+}
+
+.search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Completely redesigned carousel layout for perfect centering */
+.carousel-container {
+  position: relative;
+  max-width: 1060px; /* Carousel width (940px) + space for arrows */
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fixed-width carousel for exactly 3 cards */
+.carousel {
+  width: 940px; /* Exactly 3 cards (300px * 3) + 2 gaps (20px * 2) */
+  display: flex;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  gap: 20px;
+  padding: 20px 0;
+  -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+}
+
+.carousel::-webkit-scrollbar {
+  display: none; /* Hide scrollbar Chrome, Safari, Opera */
+}
+
+/* Properly positioned arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #5D4037;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.left-arrow {
+  left: 0; /* Align with the left edge of the container */
+}
+
+.right-arrow {
+  right: 0; /* Align with the right edge of the container */
+}
+
+/* Card styling with consistent dimensions */
+.book-card {
+  width: 300px;
+  height: 350px;
+  flex: 0 0 300px; /* Don't grow, don't shrink, exact width */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  background-color: #F5F5F0;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+.book-card-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.book-card h2 {
+  color: #5D4037;
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.book-card p {
+  color: #5D4037;
+  font-size: 0.9rem;
+  flex-grow: 1;
+}
+
+.book-theme-icon {
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.theme-logo {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.get-book-btn {
+  background-color: #5D4037;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+  transition: background-color 0.3s;
+}
+
+.get-book-btn:hover {
+  background-color: #7D5A50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .carousel-container {
+    max-width: 620px; /* 2 cards + space for arrows */
+  }
+  
+  .carousel {
+    width: 620px; /* Exactly 2 cards + 1 gap */
+  }
+}
+
+@media (max-width: 768px) {
+  .discovery-title {
+    font-size: 1.8rem;
+  }
+  
+  .carousel-container {
+    max-width: 340px; /* 1 card + space for arrows */
+  }
+  
+  .carousel {
+    width: 300px; /* Just 1 card */
+    gap: 0;
+  }
+}
