@@ -1,4 +1,4 @@
-Link to view on azure https://black-beach-048275803.6.azurestaticapps.net/
+Link to view on azure [https://black-beach-048275803.6.azurestaticapps.net/](https://brave-plant-028aa6f03.6.azurestaticapps.net)
 
 # Getting Started with Create React App
 
