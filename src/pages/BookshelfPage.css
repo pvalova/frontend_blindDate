@@ -291,6 +291,31 @@
   .read-btn:hover {
     background-color: #7D5A50;
   }
+
+  .swapped-book {
+    border-left: 4px solid #3C763D;
+  }
+
+  .book-swap-status {
+    margin-top: 15px;
+    padding: 8px;
+    background-color: rgba(60, 118, 61, 0.1);
+    border-radius: 5px;
+  }
+
+  .swap-badge {
+    background-color: #3C763D;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+  }
+
+  .swap-expires {
+    font-size: 0.85rem;
+    color: #3C763D;
+  }
   
   @media (max-width: 768px) {
     .bookshelf-content {

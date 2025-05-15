@@ -92,8 +92,11 @@ export default function BookshelfPage() {
           </div>
         ) : (
           <div className="books-grid">
-            {acquiredBooks.map(book => (
-              <div className="book-item acquired-book" key={book.id}>
+            {books.map(book => (
+              <div 
+                className={`book-item ${book.id < 0 ? 'swapped-book' : 'acquired-book'}`} 
+                key={book.id}
+              >
                 <div className="book-item-content">
                   <h3>{book.title}</h3>
                   <div className="book-details-row">
@@ -114,6 +117,14 @@ export default function BookshelfPage() {
                       {new Date(book.acquired_at).toLocaleDateString()}
                     </span>
                   </div>
+                  
+                  {/* Show swap indicator if it's a swapped book */}
+                  {book.id < 0 && (
+                    <div className="book-swap-status">
+                      <span className="swap-badge">Swapped Book</span>
+                      <span className="swap-expires">Available through swap</span>
+                    </div>
+                  )}
                 </div>
                 <div className="book-item-actions">
                   <button className="read-btn" onClick={() => handleReadBook(book.book_id)}>
