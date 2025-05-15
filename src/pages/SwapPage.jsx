@@ -219,8 +219,8 @@ export default function SwapPage() {
                         
                         <div className="swap-books">
                           <div className="swap-book outgoing">
-                            <h4 className="swap-book-title">{swap.book1.title}</h4>
-                            <p className="swap-book-author">by {swap.book1.author}</p>
+                            <h4 className="swap-book-title">{swap.book1_details?.title || "Unknown Book"}</h4>
+                            <p className="swap-book-author">by {swap.book1_details?.author || "Unknown"}</p>
                             <span className="swap-direction">Your Book</span>
                           </div>
                           
@@ -228,10 +228,10 @@ export default function SwapPage() {
                             <div className="swap-arrow">⇄</div>
                           </div>
                           
-                          {swap.book2 ? (
+                          {swap.book2_details ? (
                             <div className="swap-book incoming">
-                              <h4 className="swap-book-title">{swap.book2.title}</h4>
-                              <p className="swap-book-author">by {swap.book2.author}</p>
+                              <h4 className="swap-book-title">{swap.book2_details.title}</h4>
+                              <p className="swap-book-author">by {swap.book2_details.author}</p>
                               <span className="swap-direction">Their Book</span>
                             </div>
                           ) : (
