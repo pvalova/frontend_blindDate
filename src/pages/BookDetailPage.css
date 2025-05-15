@@ -1,0 +1,175 @@
+.book-detail-container {
+    min-height: 100vh;
+    background-color: #FFF8E7;
+    font-family: 'Georgia', serif;
+  }
+  
+  .book-detail-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .book-card-large {
+    display: flex;
+    flex-direction: column;
+    background-color: #F5F5F0;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .book-theme-info {
+    padding: 30px;
+    background-color: #E8D0C0;
+    text-align: center;
+  }
+  
+  .book-theme-info h1 {
+    color: #5D4037;
+    font-size: 2.2rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  
+  .book-genre {
+    color: #7D5A50;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  
+  .book-theme-icon-large {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .theme-logo-large {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .book-details {
+    padding: 30px;
+  }
+  
+  .book-description, .book-clues {
+    margin-bottom: 30px;
+  }
+  
+  .book-details h2 {
+    color: #5D4037;
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  
+  .book-details p {
+    color: #5D4037;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .book-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 400px;
+    margin: 20px auto 0;
+  }
+  
+  .reserve-book-btn {
+    background-color: #5D4037;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .reserve-book-btn:hover {
+    background-color: #7D5A50;
+  }
+  
+  .back-btn {
+    background-color: transparent;
+    color: #5D4037;
+    border: 1px solid #5D4037;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+  }
+  
+  .back-btn:hover {
+    background-color: rgba(93, 64, 55, 0.1);
+  }
+  
+  .book-unavailable {
+    text-align: center;
+    color: #A94442;
+    font-style: italic;
+    padding: 15px;
+    background-color: rgba(169, 68, 66, 0.1);
+    border-radius: 6px;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #5D4037;
+  }
+  
+  .error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #A94442;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .reveal-card {
+    background-color: #F5F5F0;
+  }
+
+  .book-title-reveal, .book-author-reveal {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #E8D0C0;
+    border-radius: 8px;
+  }
+
+  .revealed-title, .revealed-author {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #A94442;
+    margin-top: 10px;
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 768px) {
+    .book-card-large {
+      flex-direction: row;
+    }
+    
+    .book-theme-info {
+      width: 300px;
+      flex-shrink: 0;
+    }
+    
+    .book-details {
+      flex: 1;
+    }
+  }

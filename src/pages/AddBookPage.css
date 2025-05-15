@@ -1,0 +1,184 @@
+.add-book-container {
+    min-height: 100vh;
+    background-color: #FFF8E7;
+    font-family: 'Georgia', serif;
+  }
+  
+  .add-book-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+  
+  .add-book-title {
+    color: #5D4037;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .add-book-subtitle {
+    color: #7D5A50;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  .error-message {
+    background-color: #F2DEDE;
+    color: #A94442;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  
+  .add-book-form {
+    background-color: #F5F5F0;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-section {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #E8D0C0;
+    padding-bottom: 20px;
+  }
+  
+  .form-section:last-of-type {
+    border-bottom: none;
+  }
+  
+  .form-section h2 {
+    color: #5D4037;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .hidden-note {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #7D5A50;
+    font-weight: normal;
+  }
+  
+  .visible-note {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #5D4037;
+    font-weight: normal;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    color: #5D4037;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  
+  .form-group input[type="text"],
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #E8D0C0;
+    border-radius: 6px;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    color: #5D4037;
+    background-color: white;
+  }
+  
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .field-help {
+    font-size: 0.85rem;
+    color: #7D5A50;
+    margin-top: 5px;
+    font-style: italic;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+  }
+  
+  .checkbox-group label {
+    margin-bottom: 0;
+    cursor: pointer;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+  }
+  
+  .submit-book-btn {
+    background-color: #5D4037;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-book-btn:hover {
+    background-color: #7D5A50;
+  }
+  
+  .submit-book-btn:disabled {
+    background-color: #A9A9A9;
+    cursor: not-allowed;
+  }
+  
+  .cancel-btn {
+    background-color: transparent;
+    color: #5D4037;
+    border: 1px solid #5D4037;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+  
+  .cancel-btn:hover {
+    background-color: rgba(93, 64, 55, 0.1);
+  }
+  
+  @media (max-width: 600px) {
+    .add-book-content {
+      padding: 20px 15px 40px;
+    }
+    
+    .add-book-form {
+      padding: 20px 15px;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .submit-book-btn, .cancel-btn {
+      width: 100%;
+    }
+  }

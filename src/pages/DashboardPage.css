@@ -1,0 +1,102 @@
+.dashboard-container {
+    min-height: 100vh;
+    background-color: #FFF8E7;
+    font-family: 'Georgia', serif;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #5D4037;
+    color: white;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .small-logo {
+    width: 40px;
+    height: auto;
+  }
+  
+  .logout-btn {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .dashboard-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .welcome-message {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .welcome-message h2 {
+    color: #5D4037;
+    font-size: 1.8rem;
+  }
+  
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .card h3 {
+    color: #A94442;
+    margin-top: 0;
+  }
+  
+  .card-btn {
+    background-color: #5D4037;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.2rem;
+    color: #5D4037;
+  }
+  
+  .error-message {
+    color: #A94442;
+    background-color: #F2DEDE;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .success-message {
+    color: #3C763D;
+    background-color: #DFF0D8;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
