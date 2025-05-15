@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./BookshelfPage.css";
@@ -13,19 +13,8 @@ export default function BookshelfPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => {
-    // Check for success message from navigation
-    if (location.state?.message) {
-      setSuccessMessage(location.state.message);
-      // Clear the location state to prevent message showing on refresh
-      window.history.replaceState({}, document.title);
-    }
-    
-    // Fetch all book data
-    fetchBooks();
-  }, [location.state]);
-
-  const fetchBooks = async () => {
+  // Use useCallback to memoize the fetchBooks function
+  const fetchBooks = useCallback(async () => {
     try {
       setIsLoading(true);
       const token = localStorage.getItem("token");
@@ -67,7 +56,19 @@ export default function BookshelfPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [navigate]); // include navigate in the dependency array
+
+  useEffect(() => {
+    // Check for success message from navigation
+    if (location.state?.message) {
+      setSuccessMessage(location.state.message);
+      // Clear the location state to prevent message showing on refresh
+      window.history.replaceState({}, document.title);
+    }
+    
+    // Fetch all book data
+    fetchBooks();
+  }, [location.state, fetchBooks]); // Added fetchBooks to dependency array to fix the warning
 
   const handleDeleteBook = async (bookId) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
