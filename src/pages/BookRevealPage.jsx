@@ -19,7 +19,7 @@ export default function BookRevealPage() {
           return;
         }
 
-        const response = await fetch(`/books/mystery-books/${id}/reveal`, {
+        const response = await fetch("https://blinddatebackend.azurewebsites.net/books/mystery-books/${id}/reveal", {
           headers: {
               "Authorization": `Bearer ${token}`
           }

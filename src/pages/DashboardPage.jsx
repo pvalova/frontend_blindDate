@@ -19,7 +19,7 @@ export default function DashboardPage() {
     // Fetch user data
     const fetchUserData = async () => {
       try {
-      const response = await fetch(`/users/me/`, {
+      const response = await fetch("https://blinddatebackend.azurewebsites.net/users/me/", {
           headers: {
             "Authorization": `Bearer ${token}`
           }

@@ -73,7 +73,7 @@ export default function BookshelfPage() {
       try {
         const token = localStorage.getItem("token");
         
-        const response = await fetch(`/books/${bookId}`, {
+        const response = await fetch("https://blinddatebackend.azurewebsites.net/books/${bookId}", {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`
