@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";  // Add useCallback import
 import Navbar from "../components/Navbar";
 import "./SwapPage.css";
 import { 
@@ -24,11 +24,8 @@ export default function SwapPage() {
   const [userBooks, setUserBooks] = useState([]);
   const [selectedBookId, setSelectedBookId] = useState(null);
 
-  useEffect(() => {
-    fetchData();
-  }, [activeTab]);
-
-  const fetchData = async () => {
+  // Use useCallback to memoize the fetchData function
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError("");
     
@@ -49,7 +46,11 @@ export default function SwapPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [activeTab]); // Add activeTab as a dependency
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleJoinTheme = async (themeId) => {
     setSelectedThemeId(themeId);
