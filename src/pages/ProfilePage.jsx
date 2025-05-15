@@ -34,7 +34,7 @@ export default function ProfilePage() {
         }
 
         // Directly use the Azure URL instead of relying on proxy
-        const response = await fetch("https://blinddatebackend.azurewebsites.net/users/me/", {
+        const response = await fetch(`https://blinddatebackend.azurewebsites.net/users/me/`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }

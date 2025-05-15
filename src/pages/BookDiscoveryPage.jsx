@@ -25,7 +25,7 @@ export default function BookDiscoveryPage() {
         }
 
         // Hardwired to local FastAPI for testing
-        const response = await fetch("https://blinddatebackend.azurewebsites.net/books/mystery-books", {
+        const response = await fetch(`https://blinddatebackend.azurewebsites.net/books/mystery-books`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

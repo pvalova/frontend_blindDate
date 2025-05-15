@@ -31,7 +31,7 @@ export default function BookshelfPage() {
         }
 
         // Fetch all books contributed by the user
-        const myBooksResponse = await fetch("/books/my-books", {
+        const myBooksResponse = await fetch(`/books/my-books`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -45,7 +45,7 @@ export default function BookshelfPage() {
         setBooks(myBooksData);
 
         // Fetch all books reserved by the user
-        const reservedBooksResponse = await fetch("/books/reserved", {
+        const reservedBooksResponse = await fetch(`/books/reserved`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -73,7 +73,7 @@ export default function BookshelfPage() {
       try {
         const token = localStorage.getItem("token");
         
-        const response = await fetch("https://blinddatebackend.azurewebsites.net/books/${bookId}", {
+        const response = await fetch(`https://blinddatebackend.azurewebsites.net/books/${bookId}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`

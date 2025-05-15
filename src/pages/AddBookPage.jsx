@@ -55,7 +55,7 @@ export default function AddBookPage() {
         return;
       }
       
-      const response = await fetch("https://blinddatebackend.azurewebsites.net/books/", {
+      const response = await fetch(`https://blinddatebackend.azurewebsites.net/books/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

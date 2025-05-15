@@ -20,7 +20,7 @@ export default function BookDetailPage() {
           return;
         }
 
-        const response = await fetch("https://blinddatebackend.azurewebsites.net/books/${id}", {
+        const response = await fetch(`https://blinddatebackend.azurewebsites.net/books/${id}`, {
           headers: {
             "Authorization": `Bearer ${token}`
           }
@@ -47,7 +47,7 @@ export default function BookDetailPage() {
     try {
       const token = localStorage.getItem("token");
       
-      const response = await fetch("https://blinddatebackend.azurewebsites.net/books/${id}/reserve", {
+      const response = await fetch(`https://blinddatebackend.azurewebsites.net/books/${id}/reserve`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${token}`,
