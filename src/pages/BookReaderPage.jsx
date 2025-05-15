@@ -27,7 +27,6 @@ export default function BookReaderPage() {
     renditionRef.current?.prev();
   };
 
-  // Memoize the loadBookWithRetry function with useCallback
   const loadBookWithRetry = useCallback(async (retryAttempt = 0) => {
     try {
       setLoading(true);
@@ -39,8 +38,8 @@ export default function BookReaderPage() {
         return;
       }
       
-      // Fetch SAS URL from backend
-      const res = await fetch(`https://blinddatebackend.azurewebsites.net/books/read/${encodeURIComponent(filename)}`, {
+      // Use the proxy endpoint
+      const res = await fetch(`https://blinddatebackend.azurewebsites.net/books/read-proxy/${encodeURIComponent(filename)}`, {
         headers: {
           "Authorization": `Bearer ${token}`
         }
@@ -50,8 +49,11 @@ export default function BookReaderPage() {
         throw new Error(`Failed to load book: ${res.status} ${res.statusText}`);
       }
       
-      const data = await res.json();
-      console.log("Book URL received:", data.url.substring(0, 50) + "...");
+      // Get the book as a blob
+      const blob = await res.blob();
+      const bookUrl = URL.createObjectURL(blob);
+      
+      console.log("Created local blob URL for book");
 
       // Clear previous book instance if exists
       if (bookRef.current) {
@@ -62,8 +64,10 @@ export default function BookReaderPage() {
       }
 
       // Initialize new book
-      const book = ePub(data.url);
+      const book = ePub(bookUrl);
       bookRef.current = book;
+      // Store URL for cleanup
+      bookRef.current.bookUrl = bookUrl;
 
       // Handle potential book loading errors
       book.on('openFailed', (error) => {
@@ -84,7 +88,7 @@ export default function BookReaderPage() {
       // Wait for book to be ready
       await book.ready;
       const metadata = await book.loaded.metadata;
-      setBookTitle(metadata?.title || data.filename || "Untitled Book");
+      setBookTitle(metadata?.title || filename || "Untitled Book");
 
       // Generate locations for pagination
       await book.locations.generate(1000);
@@ -109,13 +113,12 @@ export default function BookReaderPage() {
     } catch (err) {
       console.error("Error loading book:", err);
       
-      // Implement automatic retry with exponential backoff
+      // Retry logic
       if (retryAttempt < 3) {
         console.log(`Retrying... attempt ${retryAttempt + 1}`);
         setError(`Loading failed. Retrying... (${retryAttempt + 1}/3)`);
         setRetryCount(retryAttempt + 1);
         
-        // Exponential backoff: 1s, 2s, 4s
         const delay = Math.pow(2, retryAttempt) * 1000;
         setTimeout(() => {
           loadBookWithRetry(retryAttempt + 1);
@@ -125,9 +128,8 @@ export default function BookReaderPage() {
         setLoading(false);
       }
     }
-  }, [filename, navigate]); // Add dependencies here
+  }, [filename, navigate]);
 
-  // Start loading when component mounts
   useEffect(() => {
     loadBookWithRetry();
     
@@ -136,11 +138,16 @@ export default function BookReaderPage() {
       if (renditionRef.current) {
         renditionRef.current.destroy();
       }
+      
       if (bookRef.current) {
+        // Clean up blob URL if it exists
+        if (bookRef.current.bookUrl) {
+          URL.revokeObjectURL(bookRef.current.bookUrl);
+        }
         bookRef.current.destroy();
       }
     };
-  }, [loadBookWithRetry]); // Now we can safely include loadBookWithRetry
+  }, [loadBookWithRetry]);
 
   // Handle manual retry
   const handleRetry = () => {
