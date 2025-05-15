@@ -6,7 +6,7 @@ import "./BookshelfPage.css";
 export default function BookshelfPage() {
   const [activeTab, setActiveTab] = useState("myBooks");
   const [books, setBooks] = useState([]);
-  const [reservedBooks, setReservedBooks] = useState([]);
+  const [acquiredBooks, setAcquiredBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -21,52 +21,53 @@ export default function BookshelfPage() {
       window.history.replaceState({}, document.title);
     }
     
-    // Define fetchBooks inside useEffect to avoid the dependency warning
-    const fetchBooks = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          navigate("/login");
-          return;
-        }
-
-        // Fetch all books contributed by the user
-        const myBooksResponse = await fetch(`/books/my-books`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        });
-
-        if (!myBooksResponse.ok) {
-          throw new Error("Failed to fetch your books");
-        }
-
-        const myBooksData = await myBooksResponse.json();
-        setBooks(myBooksData);
-
-        // Fetch all books reserved by the user
-        const reservedBooksResponse = await fetch(`/books/reserved`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        });
-
-        if (!reservedBooksResponse.ok) {
-          throw new Error("Failed to fetch reserved books");
-        }
-
-        const reservedBooksData = await reservedBooksResponse.json();
-        setReservedBooks(reservedBooksData);
-      } catch (error) {
-        console.error("Error fetching books:", error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
+    // Fetch all book data
     fetchBooks();
-  }, [location.state, navigate]); // Include navigate as a dependency
+  }, [location.state]);
+
+  const fetchBooks = async () => {
+    try {
+      setIsLoading(true);
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
+      // Fetch books added by the user
+      const myBooksResponse = await fetch(`https://blinddatebackend.azurewebsites.net/books/my-books`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!myBooksResponse.ok) {
+        throw new Error("Failed to fetch your books");
+      }
+
+      const myBooksData = await myBooksResponse.json();
+      setBooks(myBooksData);
+
+      // Fetch books in user's collection (mystery books they've acquired)
+      const collectionResponse = await fetch(`https://blinddatebackend.azurewebsites.net/books/my-collection`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!collectionResponse.ok) {
+        throw new Error("Failed to fetch your collection");
+      }
+
+      const collectionData = await collectionResponse.json();
+      setAcquiredBooks(collectionData);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleDeleteBook = async (bookId) => {
     if (window.confirm("Are you sure you want to delete this book?")) {
@@ -94,63 +95,12 @@ export default function BookshelfPage() {
     }
   };
 
-  const handleEditBook = (bookId) => {
-    navigate(`/edit-book/${bookId}`);
-  };
-
   const handleAddNewBook = () => {
     navigate("/add-book");
   };
 
-  // Mock data for development and testing
-  const mockMyBooks = [
-    {
-      id: 1,
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      theme: "Southern Nostalgia",
-      genre: "Fiction",
-      description: "A story about growing up in the South and confronting prejudice.",
-      clues: "Features a lawyer father and curious children in a small town.",
-      is_available: true
-    },
-    {
-      id: 2,
-      title: "1984",
-      author: "George Orwell",
-      theme: "Big Brother is Watching",
-      genre: "Science Fiction",
-      description: "A dystopian vision of total surveillance and thought control.",
-      clues: "Features a protagonist who works rewriting history.",
-      is_available: true
-    }
-  ];
-
-  const mockReservedBooks = [
-    {
-      id: 3,
-      theme: "Break My Heart, Please",
-      genre: "Romance",
-      description: "A love story that will wreck you in the best way.",
-      clues: "Features star-crossed lovers and unexpected twists.",
-      reserved_date: "2025-04-10"
-    },
-    {
-      id: 4,
-      theme: "Secrets in the Attic",
-      genre: "Mystery/Thriller",
-      description: "A story full of hidden truths, dusty letters, and late-night discoveries.",
-      clues: "Old family manor, hidden passages, and long-buried secrets.",
-      reserved_date: "2025-04-05"
-    }
-  ];
-
-  // Use real data if available, otherwise use mock data
-  const displayedBooks = books.length > 0 ? books : mockMyBooks;
-  const displayedReservedBooks = reservedBooks.length > 0 ? reservedBooks : mockReservedBooks;
-
   if (isLoading) {
-    return <div className="loading">Loading...</div>;
+    return <div className="loading">Loading your books...</div>;
   }
 
   return (
@@ -182,10 +132,10 @@ export default function BookshelfPage() {
             My Added Books
           </button>
           <button 
-            className={`tab-button ${activeTab === 'reserved' ? 'active' : ''}`}
-            onClick={() => setActiveTab('reserved')}
+            className={`tab-button ${activeTab === 'collection' ? 'active' : ''}`}
+            onClick={() => setActiveTab('collection')}
           >
-            Reserved Books
+            My Collection
           </button>
         </div>
         
@@ -198,7 +148,7 @@ export default function BookshelfPage() {
               </button>
             </div>
             
-            {displayedBooks.length === 0 ? (
+            {books.length === 0 ? (
               <div className="empty-state">
                 <p>You haven't added any books yet.</p>
                 <button className="add-first-book-btn" onClick={handleAddNewBook}>
@@ -207,7 +157,7 @@ export default function BookshelfPage() {
               </div>
             ) : (
               <div className="books-grid">
-                {displayedBooks.map(book => (
+                {books.map(book => (
                   <div className="book-item" key={book.id}>
                     <div className="book-item-content">
                       <h3>{book.theme}</h3>
@@ -233,9 +183,6 @@ export default function BookshelfPage() {
                       <button className="view-btn" onClick={() => navigate(`/books/${book.id}`)}>
                         View
                       </button>
-                      <button className="edit-btn" onClick={() => handleEditBook(book.id)}>
-                        Edit
-                      </button>
                       <button className="delete-btn" onClick={() => handleDeleteBook(book.id)}>
                         Delete
                       </button>
@@ -247,40 +194,41 @@ export default function BookshelfPage() {
           </div>
         )}
         
-        {activeTab === 'reserved' && (
-          <div className="reserved-books-section">
-            <h2>Books I've Reserved</h2>
+        {activeTab === 'collection' && (
+          <div className="acquired-books-section">
+            <h2>My Book Collection</h2>
             
-            {displayedReservedBooks.length === 0 ? (
+            {acquiredBooks.length === 0 ? (
               <div className="empty-state">
-                <p>You haven't reserved any mystery books yet.</p>
-                <button className="discover-books-btn" onClick={() => navigate("/discovery")}>
-                  Discover Books
+                <p>You haven't added any books to your collection yet.</p>
+                <button className="discover-books-btn" onClick={() => navigate("/mystery")}>
+                  Discover Mystery Books
                 </button>
               </div>
             ) : (
               <div className="books-grid">
-                {displayedReservedBooks.map(book => (
-                  <div className="book-item reserved-book" key={book.id}>
+                {acquiredBooks.map(book => (
+                  <div className="book-item acquired-book" key={book.id}>
                     <div className="book-item-content">
-                      <h3>{book.theme}</h3>
+                      <h3>{book.title}</h3>
+                      <div className="book-details-row">
+                        <span className="book-detail-label">Author:</span>
+                        <span className="book-detail-value">{book.author}</span>
+                      </div>
                       <div className="book-details-row">
                         <span className="book-detail-label">Genre:</span>
                         <span className="book-detail-value">{book.genre}</span>
                       </div>
                       <div className="book-details-row">
-                        <span className="book-detail-label">Description:</span>
-                        <span className="book-detail-value description">{book.description}</span>
+                        <span className="book-detail-label">Theme:</span>
+                        <span className="book-detail-value">{book.theme}</span>
                       </div>
                       <div className="book-details-row">
-                        <span className="book-detail-label">Reserved on:</span>
-                        <span className="book-detail-value">{book.reserved_date}</span>
+                        <span className="book-detail-label">Added:</span>
+                        <span className="book-detail-value">
+                          {new Date(book.acquired_at).toLocaleDateString()}
+                        </span>
                       </div>
-                    </div>
-                    <div className="book-item-actions">
-                      <button className="view-btn" onClick={() => navigate(`/books/${book.id}`)}>
-                        View Details
-                      </button>
                     </div>
                   </div>
                 ))}
