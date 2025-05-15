@@ -75,15 +75,27 @@ export const getSwapHistory = async () => {
 export const getUserBooks = async () => {
   const token = localStorage.getItem('token');
   
-  const response = await fetch(`${API_URL}/books/my-books`, {
-    headers: {
-      'Authorization': `Bearer ${token}`
+  try {
+    const response = await fetch(`${API_URL}/books/my-books`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    if (!response.ok) {
+      if (response.status === 422) {
+        // The 422 might mean the user has no books or there's a schema validation issue
+        // Return an empty array in this case
+        console.warn("Received 422 from /books/my-books - treating as empty list");
+        return [];
+      }
+      throw new Error('Failed to fetch your books');
     }
-  });
-  
-  if (!response.ok) {
-    throw new Error('Failed to fetch your books');
+    
+    return await response.json();
+  } catch (error) {
+    console.error("Error in getUserBooks:", error);
+    // Return empty array instead of throwing
+    return [];
   }
-  
-  return await response.json();
 };

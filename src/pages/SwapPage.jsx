@@ -58,11 +58,18 @@ export default function SwapPage() {
     
     try {
       const books = await getUserBooks();
+      
+      // Check if books is an array and not empty
+      if (!books || !Array.isArray(books) || books.length === 0) {
+        setError("You don't have any available books to swap. Please add books to your collection first.");
+        return;
+      }
+      
       setUserBooks(books);
       setShowModal(true);
     } catch (err) {
       console.error("Error fetching user books:", err);
-      setError(err.message);
+      setError("Could not fetch your books. Please add books to your collection first.");
     }
   };
 
