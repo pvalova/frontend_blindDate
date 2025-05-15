@@ -17,7 +17,6 @@ export const getSwapThemes = async () => {
   return await response.json();
 };
 
-// Join a swap with a book
 export const joinSwap = async (themeId, bookId) => {
   const token = localStorage.getItem('token');
   
@@ -30,8 +29,13 @@ export const joinSwap = async (themeId, bookId) => {
   });
   
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.detail || 'Failed to join swap');
+    // Enhanced error handling
+    try {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || 'Failed to join swap');
+    } catch (parseError) {
+      throw new Error(`Failed to join swap (Status ${response.status})`);
+    }
   }
   
   return await response.json();

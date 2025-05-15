@@ -73,8 +73,9 @@ export default function SwapPage() {
     }
   };
 
-  const handleSelectBook = (bookId) => {
-    setSelectedBookId(bookId);
+  const handleSelectBook = (book) => {
+    // Store the entire book object instead of just the ID
+    setSelectedBookId(book.book_id); // Use book_id from UserBook model
   };
 
   const handleConfirmBookSelection = async () => {
@@ -317,8 +318,8 @@ export default function SwapPage() {
                     {userBooks.map(book => (
                       <div 
                         key={book.id} 
-                        className={`book-selection-card ${selectedBookId === book.id ? 'selected' : ''}`}
-                        onClick={() => handleSelectBook(book.id)}
+                        className={`book-selection-card ${selectedBookId === book.book_id ? 'selected' : ''}`}
+                        onClick={() => handleSelectBook(book)}
                       >
                         <h4 className="book-title">{book.title}</h4>
                         <p className="book-author">by {book.author}</p>
