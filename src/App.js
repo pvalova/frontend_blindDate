@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 import SwapPage from './pages/SwapPage';
 import NotFoundPage from './pages/NotFoundPage';
 import BookRevealPage from './pages/BookRevealPage';
+import BookReaderPage from './pages/BookReaderPage';
 
 // Simple auth check
 const PrivateRoute = ({ element }) => {
