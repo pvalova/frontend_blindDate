@@ -1,5 +1,4 @@
-Link to view on azure https://black-beach-048275803.6.azurestaticapps.net/
-
+Link to view on azure https://brave-plant-028aa6f03.6.azurestaticapps.net/
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
