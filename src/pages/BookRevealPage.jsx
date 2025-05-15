@@ -7,6 +7,7 @@ export default function BookRevealPage() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAddingToCollection, setIsAddingToCollection] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -44,12 +45,33 @@ export default function BookRevealPage() {
 
   const handleAddToCollection = async () => {
     try {
-      // Here you would implement logic to add this book to the user's collection
-      // For now we'll just navigate to the bookshelf
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+      
+      setIsAddingToCollection(true);
+      
+      const response = await fetch(`https://blinddatebackend.azurewebsites.net/books/mystery-books/${id}/acquire`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || "Failed to add book to collection");
+      }
+
+      // Navigate to bookshelf with success message
       navigate("/bookshelf", { state: { message: "Book added to your collection!" } });
     } catch (error) {
       console.error("Error adding book to collection:", error);
       setError("Could not add book to collection. Please try again.");
+      setIsAddingToCollection(false);
     }
   };
 
@@ -92,12 +114,18 @@ export default function BookRevealPage() {
               <p>{book.description}</p>
             </div>
             
+            <div className="book-clues">
+              <h2>Clues</h2>
+              <p>{book.clues}</p>
+            </div>
+            
             <div className="book-actions">
               <button 
                 className="reserve-book-btn"
                 onClick={handleAddToCollection}
+                disabled={isAddingToCollection}
               >
-                Add to My Collection
+                {isAddingToCollection ? "Adding..." : "Add to My Collection"}
               </button>
               
               <button 
