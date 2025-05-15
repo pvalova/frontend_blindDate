@@ -92,7 +92,7 @@ export default function BookshelfPage() {
           </div>
         ) : (
           <div className="books-grid">
-            {books.map(book => (
+            {acquiredBooks.map(book => (
               <div 
                 className={`book-item ${book.id < 0 ? 'swapped-book' : 'acquired-book'}`} 
                 key={book.id}
