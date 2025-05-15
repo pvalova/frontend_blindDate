@@ -4,18 +4,53 @@
   color: #3b2d1f;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .reader-header {
- background-color: #5d3923;
+  background-color: #5d3923;
   color: #fff;
-  padding: 0.6rem 1rem;        /* reduce vertical spacing */
+  padding: 0.6rem 1rem;
   text-align: center;
-  font-size: 0.8rem;           /* smaller font size */
+  font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 1rem;
 }
+
+.reader-loading, .reader-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 50vh;
+  text-align: center;
+}
+
+.reader-error {
+  color: #a94442;
+}
+
+.retry-btn, .back-btn {
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+}
+
+.retry-btn {
+  background-color: #5d3923;
+  color: white;
+  border: none;
+}
+
+.back-btn {
+  background-color: transparent;
+  border: 1px solid #5d3923;
+  color: #5d3923;
+}
+
 .reader-controls {
   display: flex;
   justify-content: center;
@@ -23,19 +58,28 @@
   margin: 1rem 0;
 }
 
-.reader-controls button {
+.nav-btn {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
+  background-color: #5d3923;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
+.nav-btn:hover {
+  background-color: #7d5a50;
+}
 
 .reader-viewer {
   flex: 1;
   padding: 1rem 2rem;
-  height: 85vh;
+  height: 75vh;
   overflow-y: auto;
   background-color: #fdf6e3;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
 
 .reader-footer {
