@@ -54,6 +54,10 @@ export default function BookshelfPage() {
     fetchCollection();
   }, [location.state, fetchCollection]);
 
+  const handleReadBook = (bookId) => {
+    navigate(`/read/${bookId}`);
+  };
+
   if (isLoading) {
     return <div className="loading">Loading your book collection...</div>;
   }
@@ -110,6 +114,11 @@ export default function BookshelfPage() {
                       {new Date(book.acquired_at).toLocaleDateString()}
                     </span>
                   </div>
+                </div>
+                <div className="book-item-actions">
+                  <button className="read-btn" onClick={() => handleReadBook(book.book_id)}>
+                    Read Book
+                  </button>
                 </div>
               </div>
             ))}

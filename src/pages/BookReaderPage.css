@@ -1,0 +1,46 @@
+.reader-container {
+  background-color: #f8f1e5;
+  font-family: 'Georgia', serif;
+  color: #3b2d1f;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.reader-header {
+ background-color: #5d3923;
+  color: #fff;
+  padding: 0.6rem 1rem;        /* reduce vertical spacing */
+  text-align: center;
+  font-size: 0.8rem;           /* smaller font size */
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.reader-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.reader-controls button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+.reader-viewer {
+  flex: 1;
+  padding: 1rem 2rem;
+  height: 85vh;
+  overflow-y: auto;
+  background-color: #fdf6e3;
+}
+
+.reader-footer {
+  text-align: center;
+  padding: 0.5rem;
+  background-color: #eee3d2;
+  font-size: 0.9rem;
+}

@@ -65,6 +65,10 @@ function App() {
           path="/mystery/:id/reveal" 
           element={<PrivateRoute element={<BookRevealPage />} />} 
         />
+        <Route 
+          path="/read/:filename" 
+          element={<PrivateRoute element={<BookReaderPage />} />} 
+        />
         {/* Use the NotFoundPage for unknown routes */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
