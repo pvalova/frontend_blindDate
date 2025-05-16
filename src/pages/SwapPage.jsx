@@ -100,6 +100,20 @@ export default function SwapPage() {
     }
   };
 
+  const handleCancelSwap = async (swapId) => {
+    try {
+      await cancelSwap(swapId);
+      setSuccessMessage("Swap cancelled successfully");
+      
+      // Refresh active swaps
+      const activeSwapsData = await getActiveSwaps();
+      setActiveSwaps(activeSwapsData);
+    } catch (err) {
+      console.error("Error cancelling swap:", err);
+      setError(err.message);
+    }
+  };
+
   // Calculate time remaining for a swap
   const getTimeRemaining = (endDate) => {
     const end = new Date(endDate);
@@ -240,6 +254,18 @@ export default function SwapPage() {
                             </div>
                           )}
                         </div>
+                        
+                        {/* Show cancel button for pending swaps where the user is the creator */}
+                        {swap.status === 'pending' && swap.user1_id === parseInt(localStorage.getItem('userId') || '0') && (
+                          <div className="swap-actions">
+                            <button 
+                              className="cancel-swap-btn"
+                              onClick={() => handleCancelSwap(swap.id)}
+                            >
+                              Cancel Swap
+                            </button>
+                          </div>
+                        )}
                         
                         {swap.status === 'active' && swap.end_date && (
                           <div className="swap-timer">

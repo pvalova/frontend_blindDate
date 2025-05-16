@@ -348,6 +348,29 @@
   margin-bottom: 20px;
 }
 
+.swap-actions {
+  padding: 10px 20px;
+  background-color: #F5F5F0;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.cancel-swap-btn {
+  background-color: #A94442;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: 'Georgia', serif;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.cancel-swap-btn:hover {
+  background-color: #843534;
+}
+
 /* Responsive styles */
 @media (max-width: 768px) {
   .swap-tabs {

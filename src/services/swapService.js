@@ -75,6 +75,25 @@ export const getSwapHistory = async () => {
   return await response.json();
 };
 
+export const cancelSwap = async (swapId) => {
+  const token = localStorage.getItem('token');
+  
+  const response = await fetch(`${API_URL}/swaps/cancel/${swapId}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || 'Failed to cancel swap');
+  }
+  
+  return await response.json();
+};
+
 export const getUserBooks = async () => {
   const token = localStorage.getItem('token');
   
