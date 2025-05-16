@@ -67,16 +67,19 @@ export default function SwapPage() {
         return;
       }
       
-      // Filter books to only include those the user actually owns (not swapped books)
-      // Books that are swapped to the user have negative IDs
-      const ownedBooks = books.filter(book => book.id > 0);
+      // Filter books to only include:
+      // 1. Books the user actually owns (not swapped books) - positive IDs
+      // 2. Books not already in an active swap - !in_active_swap
+      const availableBooksForSwap = books.filter(book => 
+        book.id > 0 && !book.in_active_swap
+      );
       
-      if (ownedBooks.length === 0) {
-        setError("You don't have any books that you own to swap. Only books you own can be offered in swaps.");
+      if (availableBooksForSwap.length === 0) {
+        setError("You don't have any books available for swap. Books must be owned by you and not already in a swap.");
         return;
       }
       
-      setUserBooks(ownedBooks);
+      setUserBooks(availableBooksForSwap);
       setShowModal(true);
     } catch (err) {
       console.error("Error fetching user books:", err);
