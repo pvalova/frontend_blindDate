@@ -200,13 +200,6 @@
     color: #A94442;
   }
   
-  .book-item-actions {
-    display: flex;
-    gap: 10px;
-    padding: 15px 20px;
-    background-color: #E8D0C0;
-  }
-  
   .view-btn, .edit-btn, .delete-btn {
     padding: 8px 16px;
     border-radius: 4px;
@@ -269,31 +262,13 @@
     margin-bottom: 20px;
   }
 
-  .book-item-actions {
-    display: flex;
-    gap: 10px;
-    padding: 15px 20px;
-    background-color: #E8D0C0;
-  }
-
-  .read-btn {
-    background-color: #5D4037;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Georgia', serif;
-    width: 100%;
-    transition: background-color 0.3s;
-  }
-
   .read-btn:hover {
     background-color: #7D5A50;
   }
 
-  .swapped-book {
-    border-left: 4px solid #3C763D;
+  .swapped-out-book {
+    border-left: 4px solid #A94442;
+    opacity: 0.85;
   }
 
   .book-swap-status {
@@ -318,23 +293,53 @@
   }
   
   .book-unavailable {
-  background-color: rgba(169, 68, 66, 0.1) !important;
-  border-left: 4px solid #A94442;
-}
+    background-color: rgba(169, 68, 66, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 15px;
+  }
 
-.swap-badge.swap-unavailable {
-  background-color: #A94442;
-}
+  .swap-badge.swap-unavailable {
+    background-color: #A94442;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    margin-right: 8px;
+  }
 
-.read-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+  .read-btn-disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed !important;
+    color: #666 !important;
+  }
 
-.book-detail-value.unavailable {
-  color: #A94442;
-  font-style: italic;
-}
+  .book-item-actions {
+    background-color: #E8D0C0;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .read-btn {
+    background-color: #5D4037;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+
+  .read-btn:hover:not(:disabled) {
+    background-color: #7D5A50;
+  }
+
+  .book-detail-value.unavailable {
+    color: #A94442;
+    font-style: italic;
+  }
 
   @media (max-width: 768px) {
     .bookshelf-content {

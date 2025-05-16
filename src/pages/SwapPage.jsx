@@ -92,6 +92,10 @@ export default function SwapPage() {
       // Refresh active swaps
       const activeSwapsData = await getActiveSwaps();
       setActiveSwaps(activeSwapsData);
+      
+      // Also refresh user books as their swap status may have changed
+      const books = await getUserBooks();
+      setUserBooks(books);
     } catch (err) {
       console.error("Error removing from swap:", err);
       setError(err.message);

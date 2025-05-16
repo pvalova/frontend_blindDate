@@ -93,12 +93,12 @@ export default function BookshelfPage() {
         ) : (
           <div className="books-grid">
             {acquiredBooks.map(book => {
-              // Determine if book is swapped to the user (negative ID) or from the user (in an active swap)
+              // Determine if book is swapped to the user (negative ID)
               const isSwappedToUser = book.id < 0;
               
               return (
                 <div 
-                  className={`book-item ${isSwappedToUser ? 'swapped-book' : 'acquired-book'}`} 
+                  className={`book-item ${isSwappedToUser ? 'swapped-book' : book.in_active_swap ? 'swapped-out-book' : 'acquired-book'}`} 
                   key={book.id}
                 >
                   <div className="book-item-content">
@@ -140,7 +140,7 @@ export default function BookshelfPage() {
                   </div>
                   <div className="book-item-actions">
                     <button 
-                      className="read-btn" 
+                      className={`read-btn ${book.in_active_swap ? 'read-btn-disabled' : ''}`}
                       onClick={() => handleReadBook(book.book_id)}
                       disabled={book.in_active_swap}
                     >
