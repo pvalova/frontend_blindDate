@@ -6,7 +6,8 @@ import {
   getActiveSwaps, 
   getSwapHistory, 
   joinSwap, 
-  getUserBooks 
+  getUserBooks,
+  cancelSwap
 } from "../services/swapService";
 
 export default function SwapPage() {
