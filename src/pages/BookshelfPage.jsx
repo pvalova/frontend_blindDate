@@ -92,47 +92,64 @@ export default function BookshelfPage() {
           </div>
         ) : (
           <div className="books-grid">
-            {acquiredBooks.map(book => (
-              <div 
-                className={`book-item ${book.id < 0 ? 'swapped-book' : 'acquired-book'}`} 
-                key={book.id}
-              >
-                <div className="book-item-content">
-                  <h3>{book.title}</h3>
-                  <div className="book-details-row">
-                    <span className="book-detail-label">Author:</span>
-                    <span className="book-detail-value">{book.author}</span>
-                  </div>
-                  <div className="book-details-row">
-                    <span className="book-detail-label">Genre:</span>
-                    <span className="book-detail-value">{book.genre}</span>
-                  </div>
-                  <div className="book-details-row">
-                    <span className="book-detail-label">Theme:</span>
-                    <span className="book-detail-value">{book.theme}</span>
-                  </div>
-                  <div className="book-details-row">
-                    <span className="book-detail-label">Added:</span>
-                    <span className="book-detail-value">
-                      {new Date(book.acquired_at).toLocaleDateString()}
-                    </span>
-                  </div>
-                  
-                  {/* Show swap indicator if it's a swapped book */}
-                  {book.id < 0 && (
-                    <div className="book-swap-status">
-                      <span className="swap-badge">Swapped Book</span>
-                      <span className="swap-expires">Available through swap</span>
+            {acquiredBooks.map(book => {
+              // Determine if book is swapped to the user (negative ID) or from the user (in an active swap)
+              const isSwappedToUser = book.id < 0;
+              
+              return (
+                <div 
+                  className={`book-item ${isSwappedToUser ? 'swapped-book' : 'acquired-book'}`} 
+                  key={book.id}
+                >
+                  <div className="book-item-content">
+                    <h3>{book.title}</h3>
+                    <div className="book-details-row">
+                      <span className="book-detail-label">Author:</span>
+                      <span className="book-detail-value">{book.author}</span>
                     </div>
-                  )}
+                    <div className="book-details-row">
+                      <span className="book-detail-label">Genre:</span>
+                      <span className="book-detail-value">{book.genre}</span>
+                    </div>
+                    <div className="book-details-row">
+                      <span className="book-detail-label">Theme:</span>
+                      <span className="book-detail-value">{book.theme}</span>
+                    </div>
+                    <div className="book-details-row">
+                      <span className="book-detail-label">Added:</span>
+                      <span className="book-detail-value">
+                        {new Date(book.acquired_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                    
+                    {/* Show swap indicator if it's a swapped book */}
+                    {isSwappedToUser && (
+                      <div className="book-swap-status">
+                        <span className="swap-badge">Swapped Book</span>
+                        <span className="swap-expires">Available through swap</span>
+                      </div>
+                    )}
+                    
+                    {/* Show indicator if the user's book is in an active swap */}
+                    {book.in_active_swap && (
+                      <div className="book-swap-status book-unavailable">
+                        <span className="swap-badge swap-unavailable">In Active Swap</span>
+                        <span className="swap-expires">Currently unavailable to you</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="book-item-actions">
+                    <button 
+                      className="read-btn" 
+                      onClick={() => handleReadBook(book.book_id)}
+                      disabled={book.in_active_swap}
+                    >
+                      {book.in_active_swap ? 'Unavailable (In Swap)' : 'Read Book'}
+                    </button>
+                  </div>
                 </div>
-                <div className="book-item-actions">
-                  <button className="read-btn" onClick={() => handleReadBook(book.book_id)}>
-                    Read Book
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

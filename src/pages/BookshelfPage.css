@@ -317,6 +317,25 @@
     color: #3C763D;
   }
   
+  .book-unavailable {
+  background-color: rgba(169, 68, 66, 0.1) !important;
+  border-left: 4px solid #A94442;
+}
+
+.swap-badge.swap-unavailable {
+  background-color: #A94442;
+}
+
+.read-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.book-detail-value.unavailable {
+  color: #A94442;
+  font-style: italic;
+}
+
   @media (max-width: 768px) {
     .bookshelf-content {
       padding: 20px 15px;

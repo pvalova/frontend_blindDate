@@ -58,6 +58,25 @@ export const getActiveSwaps = async () => {
   return await response.json();
 };
 
+export const removeFromSwap = async (swapId) => {
+  const token = localStorage.getItem('token');
+  
+  const response = await fetch(`${API_URL}/swaps/remove/${swapId}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+  
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.detail || 'Failed to remove from swap');
+  }
+  
+  return await response.json();
+};
+
 // Get swap history for current user
 export const getSwapHistory = async () => {
   const token = localStorage.getItem('token');

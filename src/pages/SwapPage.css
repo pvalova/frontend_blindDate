@@ -353,9 +353,12 @@
   background-color: #F5F5F0;
   border-top: 1px solid rgba(0,0,0,0.1);
   text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-.cancel-swap-btn {
+.cancel-swap-btn, .remove-swap-btn {
   background-color: #A94442;
   color: white;
   border: none;
@@ -367,8 +370,28 @@
   transition: background-color 0.3s;
 }
 
-.cancel-swap-btn:hover {
+.cancel-swap-btn:hover, .remove-swap-btn:hover {
   background-color: #843534;
+}
+
+/* Add a disabled style for unavailable books in selection */
+.book-selection-card.unavailable {
+  opacity: 0.5;
+  pointer-events: none;
+  position: relative;
+}
+
+.book-selection-card.unavailable::after {
+  content: 'In Swap';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #A94442;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
 }
 
 /* Responsive styles */

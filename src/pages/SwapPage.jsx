@@ -7,7 +7,8 @@ import {
   getSwapHistory, 
   joinSwap, 
   getUserBooks,
-  cancelSwap
+  cancelSwap,
+  removeFromSwap
 } from "../services/swapService";
 
 export default function SwapPage() {
@@ -66,11 +67,34 @@ export default function SwapPage() {
         return;
       }
       
-      setUserBooks(books);
+      // Filter books to only include those the user actually owns (not swapped books)
+      // Books that are swapped to the user have negative IDs
+      const ownedBooks = books.filter(book => book.id > 0);
+      
+      if (ownedBooks.length === 0) {
+        setError("You don't have any books that you own to swap. Only books you own can be offered in swaps.");
+        return;
+      }
+      
+      setUserBooks(ownedBooks);
       setShowModal(true);
     } catch (err) {
       console.error("Error fetching user books:", err);
       setError("Could not fetch your books. Please add books to your collection first.");
+    }
+  };
+
+  const handleRemoveFromSwap = async (swapId) => {
+    try {
+      await removeFromSwap(swapId);
+      setSuccessMessage("Successfully removed from swap");
+      
+      // Refresh active swaps
+      const activeSwapsData = await getActiveSwaps();
+      setActiveSwaps(activeSwapsData);
+    } catch (err) {
+      console.error("Error removing from swap:", err);
+      setError(err.message);
     }
   };
 
@@ -256,17 +280,27 @@ export default function SwapPage() {
                           )}
                         </div>
                         
-                        {/* Show cancel button for pending swaps where the user is the creator */}
-                        {swap.status === 'pending' && swap.user1_id === parseInt(localStorage.getItem('userId') || '0') && (
-                          <div className="swap-actions">
+                        <div className="swap-actions">
+                          {/* Show cancel button for pending swaps where the user is the creator */}
+                          {swap.status === 'pending' && swap.user1_id === parseInt(localStorage.getItem('userId') || '0') && (
                             <button 
                               className="cancel-swap-btn"
                               onClick={() => handleCancelSwap(swap.id)}
                             >
                               Cancel Swap
                             </button>
-                          </div>
-                        )}
+                          )}
+                          
+                          {/* Show remove button for active swaps */}
+                          {swap.status === 'active' && (
+                            <button 
+                              className="remove-swap-btn"
+                              onClick={() => handleRemoveFromSwap(swap.id)}
+                            >
+                              Remove from Swap
+                            </button>
+                          )}
+                        </div>
                         
                         {swap.status === 'active' && swap.end_date && (
                           <div className="swap-timer">
