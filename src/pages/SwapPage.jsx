@@ -336,7 +336,7 @@ export default function SwapPage() {
                     {swapHistory.map(swap => (
                       <div key={swap.id} className="swap-card">
                         <div className="swap-header">
-                          <h3 className="swap-theme-name">{swap.theme.name}</h3>
+                          <h3 className="swap-theme-name">{swap.theme?.name || "Unknown Theme"}</h3>
                           <span className="swap-completed-date">
                             {new Date(swap.end_date).toLocaleDateString()}
                           </span>
@@ -344,18 +344,30 @@ export default function SwapPage() {
                         
                         <div className="swap-books">
                           <div className="swap-book outgoing">
-                            <h4 className="swap-book-title">{swap.book1.title}</h4>
-                            <p className="swap-book-author">by {swap.book1.author}</p>
+                            <h4 className="swap-book-title">{swap.book1_details?.title || "Unknown Book"}</h4>
+                            <p className="swap-book-author">by {swap.book1_details?.author || "Unknown"}</p>
                           </div>
                           
                           <div className="swap-divider">
                             <div className="swap-arrow">⇄</div>
                           </div>
                           
-                          <div className="swap-book incoming">
-                            <h4 className="swap-book-title">{swap.book2.title}</h4>
-                            <p className="swap-book-author">by {swap.book2.author}</p>
-                          </div>
+                          {swap.book2_details ? (
+                            <div className="swap-book incoming">
+                              <h4 className="swap-book-title">{swap.book2_details.title}</h4>
+                              <p className="swap-book-author">by {swap.book2_details.author}</p>
+                            </div>
+                          ) : (
+                            <div className="swap-book incoming empty">
+                              <p>This swap was cancelled before completion</p>
+                            </div>
+                          )}
+                        </div>
+                        
+                        <div className="swap-status-footer">
+                          <span className={`history-status ${swap.status}`}>
+                            {swap.status === 'completed' ? 'Completed' : 'Cancelled'}
+                          </span>
                         </div>
                       </div>
                     ))}

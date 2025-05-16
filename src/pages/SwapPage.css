@@ -348,6 +348,29 @@
   margin-bottom: 20px;
 }
 
+.swap-status-footer {
+  padding: 10px 20px;
+  background-color: #E8D0C0;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.history-status {
+  font-size: 0.9rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+}
+
+.history-status.completed {
+  background-color: #DFF0D8;
+  color: #3C763D;
+}
+
+.history-status.cancelled {
+  background-color: #F2DEDE;
+  color: #A94442;
+}
+
 .swap-actions {
   padding: 10px 20px;
   background-color: #F5F5F0;
