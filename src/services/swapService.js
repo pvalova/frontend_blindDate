@@ -1,10 +1,9 @@
 const API_URL = process.env.REACT_APP_API_URL || 'https://blinddatebackend.azurewebsites.net';
 
-// Get all swap themes
 export const getSwapThemes = async () => {
   const token = localStorage.getItem('token');
   
-  const response = await fetch(`${API_URL}/swaps/themes`, {
+  const response = await fetch(`${API_URL}/swaps/themes-with-count`, {
     headers: {
       'Authorization': `Bearer ${token}`
     }
